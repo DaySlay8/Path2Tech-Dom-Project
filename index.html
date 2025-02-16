@@ -4,9 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!--Font -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+<!--CSS-->
     <link rel="stylesheet" href="style.css">
+
+    <!--JavaScript-->
+    <script src="index.js" defer></script>
 </head>
+
+<!--Body Starts Here-->
 <body>
+    <h1 class="titleStyling"> Welcome to the Book Store! </h1>
+    <aside><h3 class="titleStyling">Add a book to the store</h3></aside>
+
+<!--Book Title -->
+<span><h3 class="categoryStyling">Book Title</h2></span>
+    <form> 
+        <label for="bookTitleForm">
+            <input type="text" placeholder="Enter Book Title here" name="book_title_form" id="bookTitleForm"
+        </label>
+    </form>
+
+<!--Book Author -->
+<span><h2 class="categoryStyling">Book Author</h2></span>
+    <form>
+        <label for="bookAuthorForm">
+            <input type="text" placeholder="Enter Book Author here" name="book_author_form" id="bookAuthorForm"
+        </label>
+    </form>
+
+    <!--Book Publisher-->
+    <span><h2 class="categoryStyling">Book Publisher</h2></span>
+    <form>
+        <label for="bookPublisherForm">
+            <input type="text" placeholder="Enter publisher here" name="book_publisher_form" id="bookPublisherForm"
+        </label>
+    </form>
+
+    <!--button-->
+    <button type="Submit" id="submitButton">Add Book</button>
+<br>
+<br>
+    <section>
+        <h2 class="titleStyling">Books In Stock</h2>
+    </section>
     
+<!--tbody is being used for SEO purposes. These elements relate to the table used to contain the addition of books-->
+    <table>
+    <thead>
+        <tr>
+          <th><h3>Title</h3></th>
+          <th><h3>Author</h3></th>
+          <th><h3>Publisher</h3></th>
+        </tr>
+      </thead>
+
+      <tbody id="tableRows"></tbody>
+
+    </table>
 </body>
 </html>
