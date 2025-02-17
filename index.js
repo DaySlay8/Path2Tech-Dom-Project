@@ -1,44 +1,50 @@
-//const API_URL = 
 
-const emptyDivForTableInfoName = document.getElementByID('tableRows')
-const idForForm = document.getElementByID()
-const buttonToAddBooks = document.getElementByID('submitButton')
+
+// Get elements by their ID
+const emptyDivForTableInfoName = document.getElementById('tableRows');
+const idForForm = document.getElementById('formId');  
+const buttonToAddBooks = document.getElementById('submitButton');
+
+// Event listener for the submit button
+buttonToAddBooks.addEventListener('click', addBooks);
+
+// Add books function
 function addBooks(event){
-    event.preventDefault //stops the form from reloading 
-    const publisherForm = document.getElementByID('bookPublisherForm') //these let the form call the different parts of the form
-    const bookAuthor = document.getElementByID('bookAuthorForm')
-    const bookTitle = document.getElementByID('bookTitleForm')
+    event.preventDefault();  // .preventDefault prevents the form from reloading 
 
-    //Below is the logic for the if statement; it tells the user that they must fill out the entire form
-    if(!bookTitle || !bookAuthor || !publisherForm){
-        alert('This form is required');
+    // Get the form values
+    const publisherForm = document.getElementById('bookPublisherForm');
+    const bookAuthor = document.getElementById('bookAuthorForm');
+    const bookTitle = document.getElementById('bookTitleForm');
+
+    // Check if any of the form fields are empty
+    if (!bookTitle.value || !bookAuthor.value || !publisherForm.value) {
+        alert('All fields are required!');
         return;
     }
 
+    // Create a new table row with the book details that will be entered. I utilized template literals here. 
+    const newBookRow = document.createElement('tr');
+    newBookRow.innerHTML = `
+        <td class="book-title">${bookTitle.value}</td>
+        <td class="book-author">${bookAuthor.value}</td>
+        <td class="book-publisher">${publisherForm.value}</td>
+        <td><button class="delete-button">Delete</button></td>
+    `;
 
-//this creates a tr in the html; adds new books for rows
-const newBookRow = document.createElement('tr');
-newBookRow.innerHTML = ` 
-<td class="book-title>${bookTitle}</td> 
-<td class="book-author">${bookAuthor}</td>
-<td class="book-publisher">${publisherForm}</td>
-<td><button class="delete-button">Delete</button></td>
+    // Append the new row to the table
+    emptyDivForTableInfoName.appendChild(newBookRow);
 
-`;
-//adding the data from the variable above here using .appendChild -> this means to "add child"
-emptyDivForTableInfoName.appendChild('newBookRow');
+    // This block is for the delete button. 
+    newBookRow.querySelector('.delete-button').addEventListener('click', () => {
+        newBookRow.remove();  // Remove the row when delete is clicked
+    });
 
-//everytime the delete button is clicked, it will remove it
-newBookRow.querySelector('.delete-button').addEventListener('click', () => {
-    //.remove is a built in function for the remove/deletion button
-    newBookRow.remove();
-});
-
-//Ensure that the information resets after the delete button is pressed
-newBookRow.reset();
-newBookRow.addEventListener('submit', buttonToAddBooks);
-};
-
-
+    // This helps reset the form after submitting. It is better than using a .reset on the table rows
+    
+    bookTitle.value = '';
+    bookAuthor.value = '';
+    publisherForm.value = '';
+}
 
 
