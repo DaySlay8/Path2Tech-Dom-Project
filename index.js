@@ -1,55 +1,79 @@
+// defining the api endpoint
+const API_URL = "https://bookstore-api-six.vercel.app/api/books";
 
+// Run when the page is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    fetchBooks(); // Fetching and displaying books on page load
 
-// Get elements by their ID
-const emptyDivForTableInfoName = document.getElementById('tableRows');
-const idForForm = document.getElementById('formId');  
-const buttonToAddBooks = document.getElementById('submitButton');
+    // Handling form submission when user adds a book
+    document.getElementById("book-form").addEventListener("submit", async (e) => {
+        e.preventDefault(); // Preventing default form behavior
 
-// Event listener for the submit button
-buttonToAddBooks.addEventListener('click', addBooks);
+        // Getting input values
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+        const publisher = document.getElementById("publisher").value;
 
-// Add books function
-function addBooks(event){
-    event.preventDefault();  // .preventDefault prevents the form from reloading 
-
-    // Get the form values
-    const publisherForm = document.getElementById('bookPublisherForm');
-    const bookAuthor = document.getElementById('bookAuthorForm');
-    const bookTitle = document.getElementById('bookTitleForm');
-
-    // Check if any of the form fields are empty
-    if (!bookTitle.value || !bookAuthor.value || !publisherForm.value) {
-        alert('All fields are required!');
-        return;
-    }
-
-    // Create a new table row with the book details that will be entered. I utilized template literals here. 
-    const newBookRow = document.createElement('tr');
-    newBookRow.innerHTML = `
-        <td class="book-title">${bookTitle.value}</td>
-        <td class="book-author">${bookAuthor.value}</td>
-        <td class="book-publisher">${publisherForm.value}</td>
-        <td><button class="delete-button">Delete</button></td>
-    `;
-
-    // Append the new row to the table
-    emptyDivForTableInfoName.appendChild(newBookRow);
-
-    // This block is for the delete button. 
-    newBookRow.querySelector('.delete-button').addEventListener('click', () => {
-        newBookRow.remove();  // Remove the row when delete is clicked
+        // Checking if all fields are filled
+        if (title && author && publisher) {
+            await addBook({ title, author, publisher }); // Calling function to add book
+            fetchBooks(); // Refreshing book list
+            document.getElementById("book-form").reset(); // Clearing form inputs
+        }
     });
+});
 
-    // This helps reset the form after submitting. It is better than using a .reset on the table rows
-    
-    bookTitle.value = '';
-    bookAuthor.value = '';
-    publisherForm.value = '';
+// Function to fetch books from the API
+async function fetchBooks() {
+    const booksContainer = document.getElementById("books-container");
+    booksContainer.innerHTML = "<tr><td colspan='4' class='text-center'>Loading...</td></tr>";
+
+    try {
+        const response = await fetch(API_URL); // Fetch data from API
+        const books = await response.json(); // Convert response to JSON
+
+        booksContainer.innerHTML = ""; // Clearing previous book list
+
+        // Looping through each book and creating a table row
+        books.forEach((book) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.publisher}</td>
+                <td>
+                    <button class="btn delete-btn" onclick="deleteBook('${book.id}')">
+                        Delete
+                    </button>
+                </td>
+            `;
+            booksContainer.appendChild(row); // Appending row to table
+        });
+    } catch (error) {
+        console.error("Error fetching books:", error);
+        booksContainer.innerHTML = "<tr><td colspan='4' class='text-center'>Error loading books</td></tr>";
+    }
 }
 
-function getBooks() {
-    fetch('https://bookstore-api-six.vercel.app/api/books')
-.then(response => response.json())
-.then(json => console.log(json))
+// Function to add a book via API
+async function addBook(book) {
+    try {
+        await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(book),
+        });
+    } catch (error) {
+        console.error("Error adding book:", error);
+    }
 }
 
+// Function to delete a book via API
+async function deleteBook(bookId) {
+    try {
+        await fetch(`${API_URL}/${bookId}`, { method: "DELETE" }); // Send DELETE request
+        fetchBooks(); // Refreshing book list
+    } catch (error) {
+        console.error("Error deleting book:", error);
+    }
+}
