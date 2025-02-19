@@ -1,0 +1,105 @@
+/* Resetting the default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Main container styling */
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Page title styling */
+.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form container styling */
+.form-container {
+    margin-bottom: 20px;
+}
+
+/* Form title styling */
+.form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Form styling */
+#book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Input fields styling */
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button styling */
+.btn {
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Add button styling */
+.add-btn {
+    background: #28a745;
+}
+
+.add-btn:hover {
+    background: #218838;
+}
+
+/* Delete button styling */
+.delete-btn {
+    background: #dc3545;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+/* Book list section styling */
+.book-list {
+    margin-top: 20px;
+}
+
+/* Table styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Table headers styling */
+.table th, .table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Table header row styling */
+.table th {
+    background: #ddd;
+}

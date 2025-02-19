@@ -4,9 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Project</title>
+    <!-- Linking to CSS stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <!-- linking the javascript file -->
+    <script defer src="index.js"></script>
 </head>
 <body>
-    
+    <!-- creating a div with a class ontainer -->
+    <div class="container">
+        <!-- creating a a h1 tag with a class title -->
+        <h1 class="title">Welcome to the Book Store!</h1>
+
+        <!-- creating a div with a class form-container -->
+        <div class="form-container">
+            <!-- creating a h2 tag with a class form-title -->
+            <h2 class="form-title">Add a book to the store</h2>
+            <!-- creating a form with id book-form -->
+            <form id="book-form">
+                <!-- creating a input tag with type, id, placeholder, and class -->
+                <input type="text" id="title" placeholder="Book Title" class="input">
+                <!-- creating a input tag with type, id, placeholder, and class -->
+                <input type="text" id="author" placeholder="Book Author" class="input">
+                <!-- creating a input tag with type, id, placeholder, and class -->
+                <input type="text" id="publisher" placeholder="Book Publisher" class="input">
+                <!-- creating an add book button -->
+                <button type="submit" class="btn add-btn">Add Book</button>
+            </form>
+        </div>
+
+        <!-- creating a div with a class book-list -->
+        <div class="book-list">
+            <!-- creating h2 with a class form-title -->
+            <h2 class="form-title">Books in Stock</h2>
+            <!-- creating a table with a class table -->
+            <table class="table">
+                <!-- creating a thead tag -->
+                <thead>
+                    <!-- creating a table row -->
+                    <tr>
+                        <!-- creating a table head -->
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <!-- creating tbody with id books-container -->
+                <tbody id="books-container">
+                    <!-- Books will be inserted dynamically here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
