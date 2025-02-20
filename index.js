@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Checking if all fields are filled
         if (title && author && publisher) {
             await addBook({ title, author, publisher }); // Calling function to add book
-            fetchBooks(); // Refreshing book list
+        
             document.getElementById("book-form").reset(); // Clearing form inputs
         }
     });
@@ -37,6 +37,7 @@ async function fetchBooks() {
         // Looping through each book and creating a table row
         books.forEach((book) => {
             const row = document.createElement("tr");
+            row.id=book.id;
             row.innerHTML = `
                 <td>${book.title}</td>
                 <td>${book.author}</td>
@@ -57,12 +58,27 @@ async function fetchBooks() {
 
 // Function to add a book via API
 async function addBook(book) {
-    try {
+    try { 
+        const booksContainer = document.getElementById("books-container");
+
         await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(book),
         });
+        const row = document.createElement("tr");
+        row.id=book.id;
+        row.innerHTML = `
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.publisher}</td>
+            <td>
+                <button class="btn delete-btn" onclick="deleteBook('${book.id}')">
+                    Delete
+                </button>
+            </td>
+        `;
+        booksContainer.appendChild(row); // Appending row to table
     } catch (error) {
         console.error("Error adding book:", error);
     }
@@ -72,7 +88,7 @@ async function addBook(book) {
 async function deleteBook(bookId) {
     try {
         await fetch(`${API_URL}/${bookId}`, { method: "DELETE" }); // Send DELETE request
-        fetchBooks(); // Refreshing book list
+        document.getElementById(bookId).remove(); // Refreshing book list
     } catch (error) {
         console.error("Error deleting book:", error);
     }
